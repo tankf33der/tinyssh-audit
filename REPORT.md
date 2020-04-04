@@ -10,7 +10,6 @@ clang -g -fsanitize=memory *.c && ./a.out
 
 SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/mpech/tinyssh-audit/ed25519/crypto_sign_ed25519.c:59:9 in crypto_sign_ed25519_tinynacl_open
 Exiting
-make: *** [Makefile:5: m] Error 77
 ```
 
 ```
