@@ -13,7 +13,9 @@ Modifications (Jan Mojzis):
 #include "crypto_int32.h"
 #include "crypto_int16.h"
 #include "crypto_int8.h"
-#include "randombytes.h"
+// XX
+//#include "randombytes.h"
+#include "misc.h"
 #include "crypto_verify_32.h"
 #include "crypto_hash_sha512.h"
 #include "crypto_kem_sntrup4591761.h"
@@ -63,7 +65,7 @@ static void swap(void *x,void *y,int bytes,int mask)
   char xi, yi, c, t;
 
   c = mask;
-  
+
   for (i = 0;i < bytes;++i) {
     xi = i[(char *) x];
     yi = i[(char *) y];
@@ -145,14 +147,14 @@ static crypto_int32 small_random32(void)
 {
 #ifdef KAT
   if (pos == 4*761) {
-    randombytes(x,sizeof x);
+    pseudorandombytes(x,sizeof x);
     pos = 0;
   }
   pos += 4;
   return x[pos - 4] + (x[pos - 3] << 8) + (x[pos - 2] << 16) + (x[pos - 1] << 24);
 #else
   unsigned char x[4];
-  randombytes(x,4);
+  pseudorandombytes(x,4);
   return x[0] + (x[1] << 8) + (x[2] << 16) + (x[3] << 24);
 #endif
 }
@@ -314,8 +316,8 @@ int r3_recip(small *r,const small *s)
 {
   const int loops = 2*p + 1;
   int loop;
-  small f[p + 1]; 
-  small g[p + 1]; 
+  small f[p + 1];
+  small g[p + 1];
   small u[loops + 1];
   small v[loops + 1];
   small c;
@@ -688,8 +690,8 @@ static int rq_recip3(modq *r,const small *s)
 {
   const int loops = 2*p + 1;
   int loop;
-  modq f[p + 1]; 
-  modq g[p + 1]; 
+  modq f[p + 1];
+  modq g[p + 1];
   modq u[loops + 1];
   modq v[loops + 1];
   modq c;
@@ -1072,12 +1074,12 @@ rm crypto_kem_sntrup4591761.c || :
     echo
 
     echo '/* params.h */'
-    cat params.h 
+    cat params.h
     echo
 
     echo '/* small.h */'
     echo 'typedef crypto_int8 small;'
-    echo 
+    echo
     echo '/* small.c */'
     cat small.c | sed 's/^void /static void /'
     echo
