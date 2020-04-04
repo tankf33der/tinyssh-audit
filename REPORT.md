@@ -29,6 +29,11 @@ ed25519/sc25519.c:23:[kernel] warning: invalid LHS operand for left shift. asser
                     results are not correct for lines of code that can be reached from the degeneration point.
 ```
 
+
+Both kem_sntrup4591761 with and without x25519.
+
+Note: randombytes moved to pseudo variation for TIS satisfy.
+
 ```
 $ make
 rm -rf *.o *.out mike.c
