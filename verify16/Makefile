@@ -7,9 +7,9 @@ u: c
 	clang -fsanitize=undefined *.c && ./a.out
 mike:
 	cat *.c >> mike.c
-ccomp: clean mike
+ccomp: c mike
 	ccomp -fstruct-passing mike.c && ./a.out
-interp: clean mike
+interp: c mike
 	ccomp -interp -quiet -fstruct-passing mike.c
 c:
 	rm -rf *.o *.out mike.c
