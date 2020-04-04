@@ -71,7 +71,7 @@ static void test_dec(void) {
 int main(void) {
 
     test_dec();
-    test_random();
+    //test_random();
 
     //_exit(0);
 }
