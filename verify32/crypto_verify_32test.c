@@ -44,5 +44,5 @@ int main(void) {
     test_alignment();
     test_verify();
 
-    _exit(0);
+    //_exit(0);
 }
