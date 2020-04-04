@@ -1,4 +1,5 @@
-Raw list of findings.
+Raw list all of findings without sorting and severity.
+
 ```
 clang -g -fsanitize=memory *.c && ./a.out
 ==61800==WARNING: MemorySanitizer: use-of-uninitialized-value
@@ -58,4 +59,4 @@ sntrup4591761x25519/crypto_kem_sntrup4591761.c:158:[kernel] warning: signed over
 [value] user error: Degeneration occurred:
                     results are not correct for lines of code that can be reached from the degeneration point.
 ```
-		    
+
