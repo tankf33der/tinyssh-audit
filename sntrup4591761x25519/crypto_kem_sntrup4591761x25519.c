@@ -4,7 +4,9 @@ Jan Mojzis
 Public domain.
 */
 
-#include "randombytes.h"
+// XXX
+//#include "randombytes.h"
+#include "misc.h"
 #include "cleanup.h"
 #include "crypto_hash_sha512.h"
 #include "crypto_scalarmult_curve25519.h"
@@ -46,12 +48,13 @@ int crypto_kem_sntrup4591761x25519_tinynacl_enc(unsigned char *c,
     c += crypto_kem_sntrup4591761_CIPHERTEXTBYTES;
 
     /* x25519 */
-    randombytes(onetimesk, sizeof onetimesk);
+	// XXX
+    pseudorandombytes(onetimesk, sizeof onetimesk);
     r |= crypto_scalarmult_curve25519_base(/*onetimepk*/ c, onetimesk);
     r |= crypto_scalarmult_curve25519(buf + sntrup4591761_BYTES, onetimesk, pk);
 
     /* if something fails, fill the buffer with random data */
-    randombytes(tmp, sizeof tmp);
+    pseudorandombytes(tmp, sizeof tmp);
     b = returnmask(r);
     for (i = 0; i < sx_BYTES; ++i) tmp[i] = b & (tmp[i] ^ buf[i]);
     for (i = 0; i < sx_BYTES; ++i) buf[i] ^= tmp[i];
@@ -84,7 +87,7 @@ int crypto_kem_sntrup4591761x25519_tinynacl_dec(unsigned char *k,
     r |= crypto_scalarmult_curve25519(buf + sntrup4591761_BYTES, sk, c);
 
     /* if something fails, fill the buffer with random data */
-    randombytes(tmp, sizeof tmp);
+    pseudorandombytes(tmp, sizeof tmp);
     b = returnmask(r);
     for (i = 0; i < sx_BYTES; ++i) tmp[i] = b & (tmp[i] ^ buf[i]);
     for (i = 0; i < sx_BYTES; ++i) buf[i] ^= tmp[i];
@@ -108,7 +111,7 @@ int crypto_kem_sntrup4591761x25519_tinynacl_keypair(unsigned char *pk,
     r |= crypto_kem_sntrup4591761_keypair(pk, sk);
 
     /* x25519 */
-    randombytes(sk + sntrup4591761_SECRETKEYBYTES, x25519_SCALARBYTES);
+    pseudorandombytes(sk + sntrup4591761_SECRETKEYBYTES, x25519_SCALARBYTES);
     r |= crypto_scalarmult_curve25519_base(pk + sntrup4591761_PUBLICKEYBYTES,
                                            sk + sntrup4591761_SECRETKEYBYTES);
 
