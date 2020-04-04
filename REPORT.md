@@ -32,7 +32,9 @@ ed25519/sc25519.c:23:[kernel] warning: invalid LHS operand for left shift. asser
 
 Both kem_sntrup4591761 with and without x25519.
 
-Note: randombytes moved to pseudo variation for TIS satisfy.
+Note: randombytes() moved to pseudo variation for TIS satisfy.
+
+crypto_kem_sntrup4591761.c:158 found by SAN and TIS.
 
 ```
 $ make
